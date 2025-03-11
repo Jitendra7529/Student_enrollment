@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Confirm Delete - {{ course.name }}{% endblock %}
+
+{% block content %}
+<div class="detail-card">
+    <div class="detail-header">
+        <h1>Confirm Delete</h1>
+    </div>
+    
+    <div class="detail-section">
+        <p>Are you sure you want to delete the course "{{ course.name }}"?</p>
+        <p>This action cannot be undone and will remove all enrollments for this course.</p>
+        
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a href="{% url 'course_detail' course.pk %}" class="btn">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

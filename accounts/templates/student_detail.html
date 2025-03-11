@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ student.first_name }} {{ student.last_name }} - Student Details{% endblock %}
+
+{% block content %}
+<div class="detail-card">
+    <div class="detail-header">
+        <h1>{{ student.first_name }} {{ student.last_name }}</h1>
+    </div>
+    
+    <div class="detail-section">
+        <h3>Student Information</h3>
+        <p><strong>Email:</strong> {{ student.email }}</p>
+        <p><strong>Phone:</strong> {{ student.phone }}</p>
+        {% if student.date_of_birth %}
+        <p><strong>Date of Birth:</strong> {{ student.date_of_birth }}</p>
+        {% endif %}
+    </div>
+    
+    <div class="detail-section">
+        <h3>Enrolled Courses</h3>
+        {% with enrollments=student.enrollment_set.all %}
+        {% if enrollments %}
+        <div class="list-container">
+            {% for enrollment in enrollments %}
+            <div class="list-item">
+                <h4>{{ enrollment.course.name }}</h4>
+                <p><strong>Credits:</strong> {{ enrollment.course.credits }}</p>
+                <p><strong>Enrolled on:</strong> {{ enrollment.enrollment_date|date:"F j, Y" }}</p>
+                <div class="action-links">
+                    <a href="{% url 'enrollment_update' enrollment.pk %}">Edit Enrollment</a>
+                    <a href="{% url 'enrollment_delete' enrollment.pk %}" class="btn-danger">Drop Course</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>Not enrolled in any courses yet.</p>
+        {% endif %}
+        {% endwith %}
+        
+        <div class="action-links">
+            <a href="{% url 'enrollment_create' %}" class="btn">Enroll in a Course</a>
+        </div>
+    </div>
+    
+    <div class="action-links">
+        <a href="{% url 'student_update' student.pk %}" class="btn">Edit Student</a>
+        <a href="{% url 'student_delete' student.pk %}" class="btn btn-danger">Delete Student</a>
+        <a href="{% url 'student_list' %}">Back to Students List</a>
+    </div>
+</div>
+{% endblock %}

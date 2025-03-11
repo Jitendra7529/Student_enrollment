@@ -1,0 +1,37 @@
+<!-- templates/school/student_form.html -->
+{% extends 'base.html' %}
+
+{% block title %}{% if form.instance.pk %}Edit Student{% else %}Create New Student{% endif %}{% endblock %}
+
+{% block content %}
+<div class="detail-card">
+    <div class="detail-header">
+        <h1>{% if form.instance.pk %}Edit Student{% else %}Create New Student{% endif %}</h1>
+    </div>
+    
+    <form method="post">
+        {% csrf_token %}
+        
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.help_text %}
+            <small class="help-text">{{ field.help_text }}</small>
+            {% endif %}
+            {% if field.errors %}
+            <div class="error">
+                {{ field.errors }}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        
+        <button type="submit" class="btn">{% if form.instance.pk %}Update Student{% else %}Create Student{% endif %}</button>
+    </form>
+    
+    <div class="action-links">
+        <a href="{% url 'student_list' %}">Back to Students List</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+<!-- templates/school/course_detail.html -->
+{% extends 'base.html' %}
+
+{% block title %}{{ course.name }} - Course Details{% endblock %}
+
+{% block content %}
+<div class="detail-card">
+    <div class="detail-header">
+        <h1>{{ course.name }}</h1>
+    </div>
+    
+    <div class="detail-section">
+        <h3>Course Information</h3>
+        <p><strong>Credits:</strong> {{ course.credits }}</p>
+        <p><strong>Description:</strong> {{ course.description }}</p>
+    </div>
+    
+    <div class="detail-section">
+        <h3>Enrolled Students</h3>
+        {% with enrollments=course.enrollment_set.all %}
+        {% if enrollments %}
+        <div class="list-container">
+            {% for enrollment in enrollments %}
+            <div class="list-item">
+                <h4>{{ enrollment.student.first_name }} {{ enrollment.student.last_name }}</h4>
+                <p><strong>Email:</strong> {{ enrollment.student.email }}</p>
+                <p><strong>Enrolled on:</strong> {{ enrollment.enrollment_date|date:"F j, Y" }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No students enrolled in this course yet.</p>
+        {% endif %}
+        {% endwith %}
+    </div>
+    
+    <div class="action-links">
+        <a href="{% url 'course_update' course.pk %}" class="btn">Edit Course</a>
+        <a href="{% url 'course_delete' course.pk %}" class="btn btn-danger">Delete Course</a>
+        <a href="{% url 'course_list' %}">Back to Courses List</a>
+    </div>
+</div>
+{% endblock %}

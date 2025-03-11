@@ -1,0 +1,31 @@
+<!-- templates/course_list.html -->
+{% extends 'base.html' %}
+
+{% block title %}Courses - Student Enrollment System{% endblock %}
+
+{% block content %}
+<div class="detail-card">
+    <div class="detail-header">
+        <h1>Courses</h1>
+        <a href="{% url 'course_create' %}" class="btn">Add New Course</a>
+    </div>
+    
+    {% if courses %}
+    <div class="list-container">
+        {% for course in courses %}
+        <div class="list-item">
+            <h3>{{ course.name }}</h3>
+            <p>Credits: {{ course.credits }}</p>
+            <div class="action-links">
+                <a href="{% url 'course_detail' course.pk %}">View Details</a>
+                <a href="{% url 'course_update' course.pk %}">Edit</a>
+                <a href="{% url 'course_delete' course.pk %}" class="btn-danger">Delete</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>No courses found. <a href="{% url 'course_create' %}">Add a course</a>.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Student Enrollment System{% endblock %}
+
+{% block content %}
+<div class="detail-card">
+    <div class="detail-header">
+        <h1>Welcome to the Student Enrollment System</h1>
+    </div>
+    
+    <div class="detail-section">
+        <p>This system allows you to manage students, courses, and enrollments.</p>
+        
+        <div class="action-links">
+            <a href="{% url 'student_list' %}" class="btn">View All Students</a>
+            <a href="{% url 'course_list' %}" class="btn btn-secondary">View All Courses</a>
+            <a href="{% url 'student_create' %}" class="btn">Add New Student</a>
+            <a href="{% url 'course_create' %}" class="btn btn-secondary">Add New Course</a>
+            <a href="{% url 'enrollment_create' %}" class="btn">Enroll Student</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
