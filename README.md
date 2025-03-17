@@ -2,8 +2,6 @@
 
 A comprehensive web application built with Django for managing student enrollments, courses, and academic records.
 
-![Student Enrollment System](https://via.placeholder.com/800x400?text=Student+Enrollment+System)
-
 ## Features
 
 - **Student Management**: Add, view, edit, and delete student records
